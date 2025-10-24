@@ -1,0 +1,93 @@
+/* Base theme */
+:root{
+  --brand:#0b1220;
+  --accent:#f0a500;
+  --muted:#6b7280;
+  --card-bg:#ffffff;
+  --radius:12px;
+  --shadow:0 10px 30px rgba(11,18,32,0.06);
+}
+*{box-sizing:border-box}
+body{
+  font-family: 'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+  background: #f6f7fb;
+  color: #111827;
+  -webkit-font-smoothing:antialiased;
+}
+.navbar-brand{color:#fff !important}
+.nav-link{color:rgba(255,255,255,0.9) !important}
+.hero{
+  background: linear-gradient(90deg, rgba(11,18,32,0.75), rgba(11,18,32,0.45)), url('assets/images/hero-bg.jpg') center/cover no-repeat;
+  padding:80px 0;
+  border-bottom-left-radius:18px;
+  border-bottom-right-radius:18px;
+}
+.hero img{max-width:100%}
+.product-card{border-radius:var(--radius); overflow:hidden; background:var(--card-bg); transition:transform .28s ease, box-shadow .28s ease;}
+.product-card:hover{transform:translateY(-8px); box-shadow:0 22px 50px rgba(11,18,32,0.08)}
+.product-img{height:220px; object-fit:cover; width:100%; display:block}
+
+/* Cards and sections */
+.card{border-radius:12px}
+.price{color:var(--brand); font-weight:700}
+
+
+/* Clean, modern footer styles */
+.site-footer { background: #0b1220; color: #d1d5db; }
+.site-footer .footer-brand { color: #fff; font-size: 1.25rem; letter-spacing: .4px; }
+.site-footer .footer-brand-link { text-decoration: none; }
+.site-footer p { color: #aab3bd; }
+
+.site-footer .footer-links { margin: 0; padding: 0; }
+.site-footer .footer-links li { margin-bottom: 8px; }
+.site-footer .footer-links a {
+  color: #c7ccd6;
+  text-decoration: none;
+  transition: color .15s ease, transform .12s ease;
+}
+.site-footer .footer-links a:hover,
+.site-footer .footer-links a:focus { color: #ffffff; transform: translateY(-2px); text-decoration: none; }
+
+.site-footer .footer-nav { display: inline-flex; gap: .5rem; align-items: center; }
+.site-footer .footer-nav a { color: #c7ccd6; text-decoration: none; }
+.site-footer .footer-nav .sep { color: rgba(255,255,255,0.12); margin: 0 .35rem; }
+
+.site-footer .social-icon {
+  display: inline-flex; align-items:center; justify-content:center;
+  width:36px; height:36px; border-radius:8px;
+  background: rgba(255,255,255,0.03); color: #fff;
+  text-decoration: none; transition: transform .18s ease, background .18s ease;
+}
+.site-footer .social-icon:hover { transform: translateY(-4px); background: rgba(240,165,0,0.12); color: var(--accent); }
+
+.site-footer .newsletter-form input.form-control {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.04);
+  color: #fff;
+}
+.site-footer .newsletter-form input::placeholder { color: rgba(255,255,255,0.6); }
+.site-footer .newsletter-form .btn { box-shadow: none; }
+
+.site-footer hr { border-top-color: rgba(255,255,255,0.04); margin-top:1.25rem; }
+
+.site-footer .footer-copyright { color: #aab3bd; }
+
+/* Responsive tweaks */
+@media (max-width: 767px) {
+  .site-footer .newsletter-form { flex-direction: column; gap: .5rem; }
+  .site-footer .newsletter-form input { width: 100% !important; }
+  .site-footer .newsletter-form .btn { width: 100%; }
+  .site-footer .footer-nav { gap: .25rem; flex-wrap:wrap; justify-content:center; margin-top:.5rem; }
+}
+
+/* ensure links are not underlined (covers visited/active states) */
+.site-footer a, .site-footer a:visited, .site-footer a:active { text-decoration: none !important; }
+
+/* ...existing code... */
+
+/* Responsive */
+@media (max-width:768px){
+  .product-img{height:160px}
+  .hero{padding:48px 0}
+  .footer-inner{flex-direction:column;text-align:center}
+}
