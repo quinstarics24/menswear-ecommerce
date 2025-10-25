@@ -196,7 +196,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="card contact-card p-3 mb-3">
           <h6 class="fw-bold mb-2">Contact details</h6>
           <p class="mb-1"><i class="fa-solid fa-envelope me-2"></i><a class="text-decoration-none" href="mailto:support@menswear.example">support@menswear.example</a></p>
-          <p class="mb-1"><i class="fa-solid fa-phone me-2"></i>+233 123 456 789</p>
+          <p class="mb-1"><i class="fa-solid fa-phone me-2"></i>+237 673 456 789</p>
           <p class="mb-0"><i class="fa-solid fa-location-dot me-2"></i>123 Menswear St., City, Country</p>
         </div>
 

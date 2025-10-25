@@ -137,7 +137,7 @@ include 'includes/header.php';
 
             <div class="d-flex gap-2 mt-3">
                 <button type="submit" class="btn btn-outline-secondary">Update Cart</button>
-                <a href="index.php" class="btn btn-light">Continue Shopping</a>
+                <a href="products.php" class="btn btn-light">Continue Shopping</a>
                 <a href="checkout.php" class="btn btn-dark ms-auto">Proceed to Checkout</a>
             </div>
         </form>

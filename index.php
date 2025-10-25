@@ -19,11 +19,8 @@ $featuredProducts = getFeaturedProducts();
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/styles.css">
-  <style>
-   
-    .hero-title { text-shadow: 0 6px 20px rgba(0,0,0,0.45); }
-  </style>
+  <link rel="stylesheet" href="assets/css/style.css">
+
 </head>
 <body class="bg-light text-dark">
 
@@ -54,7 +51,7 @@ $featuredProducts = getFeaturedProducts();
         <img src="assets/images/about-showcase.jpg" alt="About Menswear" class="img-fluid rounded shadow-sm">
       </div>
       <div class="col-md-6">
-        <h2 class="fw-bold">About Menswear</h2>
+        <h2 class="fw-bold section-title">About Menswear</h2>
         <p class="text-muted">We craft timeless menswear with careful attention to fit, fabric and finish. From everyday essentials to occasion wear, our pieces are designed to look great and last.</p>
         <ul class="list-unstyled">
           <li class="mb-2"><i class="fa-solid fa-check text-warning me-2"></i>High-quality fabrics</li>
@@ -69,8 +66,8 @@ $featuredProducts = getFeaturedProducts();
   <section class="bg-white py-5" id="why" data-aos="fade-up">
     <div class="container">
       <div class="text-center mb-4">
-        <h3 class="fw-bold">Why Choose Us</h3>
-        <p class="text-muted mb-0">Thoughtful design, honest pricing, and an exceptional shopping experience.</p>
+        <h3 class="fw-bold section-title d-inline-block">Why Choose Us</h3>
+        <p class="text-muted mb-0 mt-3">Thoughtful design, honest pricing, and an exceptional shopping experience.</p>
       </div>
 
       <div class="row g-4 mt-4">
@@ -107,7 +104,7 @@ $featuredProducts = getFeaturedProducts();
 
   <section class="container py-5" data-aos="fade-up">
     <div class="d-flex align-items-center mb-4">
-      <h2 class="me-auto">Featured Products</h2>
+      <h2 class="me-auto section-title">Featured Products</h2>
       <a href="products.php" class="small text-muted">View all products</a>
     </div>
 
