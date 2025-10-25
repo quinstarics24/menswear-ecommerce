@@ -83,7 +83,6 @@ body{
 /* ensure links are not underlined (covers visited/active states) */
 .site-footer a, .site-footer a:visited, .site-footer a:active { text-decoration: none !important; }
 
-/* ...existing code... */
 
 /* Responsive */
 @media (max-width:768px){
