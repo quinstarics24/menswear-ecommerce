@@ -167,8 +167,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <?php
               // simple shipping rule example
-              $shipping = $subtotal > 0 ? 500.00 : 0.00; // fixed XAF 500 shipping if subtotal > 0
-              $tax = 0; // change if needed
+              $shipping = $subtotal > 0 ? 500.00 : 0.00; 
+              $tax = 0; 
               $total = $subtotal + $shipping + $tax;
             ?>
 

@@ -15,7 +15,7 @@ $cartCount = isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0;
         <li class="nav-item"><a class="nav-link" href="products.php">Products</a></li>
         <li class="nav-item">
           <a class="nav-link position-relative" href="cart.php">
-            <i class="fa-solid fa-basket-shopping fa-lg"></i>
+           <i class="fas fa-shopping-cart fa-lg"></i>
             <?php if($cartCount > 0): ?>
               <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-dark">
                 <?php echo $cartCount; ?>

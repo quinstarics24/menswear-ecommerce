@@ -1,5 +1,5 @@
 <?php
-<?php
+
 if (session_status() === PHP_SESSION_NONE) session_start();
 $cartCount = isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0;
 ?>
