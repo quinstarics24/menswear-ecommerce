@@ -43,7 +43,7 @@ $cartCount = isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0;
         </li>
 
         <li class="nav-item"><a class="nav-link" href="checkout.php">Checkout</a></li>
-        <li class="nav-item"><a class="nav-link" href="contact.php">Contact</a></li>
+        <li class="nav-item"><a class="nav-link" href="contacts.php">Contact</a></li>
       </ul>
     </div>
   </div>

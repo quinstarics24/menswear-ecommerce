@@ -1,8 +1,10 @@
 <?php
 
+
 session_start();
-require_once 'includes/db.php';
-require_once 'includes/functions.php';
+
++ require_once __DIR__ . '/includes/db.php';
++ require_once __DIR__ . '/includes/functions.php';
 
 $cart = $_SESSION['cart'] ?? [];
 
@@ -31,6 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // sanitize inputs
     $name = trim($_POST['name'] ?? '');
     $email = filter_var($_POST['email'] ?? '', FILTER_SANITIZE_EMAIL);
+    $phone = trim($_POST['phone'] ?? '');
     $address = trim($_POST['address'] ?? '');
     $payment_method = trim($_POST['payment_method'] ?? '');
 
@@ -39,17 +42,85 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif (empty($cartItems)) {
         $error = "Your cart is empty.";
     } else {
-        // Simulate order processing
-        $order_id = random_int(100000, 999999);
-        // In real app: save order to DB and process payment here
+        // compute totals
+        $shipping = $subtotal > 0 ? 500.00 : 0.00;
+        $tax = 0.00;
+        $total = $subtotal + $shipping + $tax;
+        $now = date('Y-m-d H:i:s');
 
-        // Clear cart
-        unset($_SESSION['cart']);
+        $saved = false;
+        $order_id = null;
 
-        $success = "Order #{$order_id} placed successfully. You'll receive an email confirmation at {$email}.";
-        // recompute view variables
-        $cartItems = [];
-        $subtotal = 0.0;
+        // try to save to DB
+        try {
+            // ensure table exists and insert
+            $pdo->beginTransaction();
+            $pdo->exec("CREATE TABLE IF NOT EXISTS orders (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                customer_name VARCHAR(191),
+                email VARCHAR(191),
+                phone VARCHAR(50),
+                address TEXT,
+                payment_method VARCHAR(100),
+                total DECIMAL(10,2),
+                status VARCHAR(50) DEFAULT 'pending',
+                items TEXT,
+                created_at DATETIME
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
+            $stmt = $pdo->prepare("INSERT INTO orders (customer_name,email,phone,address,payment_method,total,status,items,created_at) VALUES (:name,:email,:phone,:address,:payment,:total,:status,:items,:created)");
+            $stmt->execute([
+                ':name' => $name,
+                ':email' => $email,
+                ':phone' => $phone,
+                ':address' => $address,
+                ':payment' => $payment_method,
+                ':total' => number_format($total,2,'.',''),
+                ':status' => 'pending',
+                ':items' => json_encode($cartItems, JSON_UNESCAPED_UNICODE),
+                ':created' => $now
+            ]);
+            $pdo->commit();
+            $order_id = $pdo->lastInsertId();
+            $saved = true;
+        } catch (PDOException $e) {
+            if ($pdo->inTransaction()) $pdo->rollBack();
+            // log DB error to storage
+            $logDir = __DIR__ . '/storage';
+            if (!is_dir($logDir)) @mkdir($logDir, 0755, true);
+            @file_put_contents($logDir . '/orders_error.log', date('c') . " - DB ERROR: " . $e->getMessage() . PHP_EOL, FILE_APPEND);
+            $saved = false;
+        }
+
+        // fallback to file storage if DB failed
+        if (!$saved) {
+            $logDir = __DIR__ . '/storage';
+            if (!is_dir($logDir)) @mkdir($logDir, 0755, true);
+            $data = [
+                'order_id' => random_int(100000, 999999),
+                'customer_name' => $name,
+                'email' => $email,
+                'phone' => $phone,
+                'address' => $address,
+                'payment_method' => $payment_method,
+                'total' => number_format($total,2,'.',''),
+                'items' => $cartItems,
+                'created_at' => $now
+            ];
+            @file_put_contents($logDir . '/orders.log', json_encode($data, JSON_UNESCAPED_UNICODE) . PHP_EOL, FILE_APPEND | LOCK_EX);
+            $order_id = $data['order_id'];
+            $saved = true;
+        }
+
+        if ($saved) {
+            // Clear cart and show confirmation
+            unset($_SESSION['cart']);
+            $success = "Order #{$order_id} placed successfully. You'll receive an email confirmation at {$email}.";
+            // recompute view variables
+            $cartItems = [];
+            $subtotal = 0.0;
+        } else {
+            $error = "Unable to save order. Try again later.";
+        }
     }
 }
 ?>
@@ -60,7 +131,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Checkout — Menswear</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300,400,600,700&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/styles.css">
@@ -167,8 +238,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <?php
               // simple shipping rule example
-              $shipping = $subtotal > 0 ? 500.00 : 0.00; 
-              $tax = 0; 
+              $shipping = $subtotal > 0 ? 500.00 : 0.00;
+              $tax = 0;
               $total = $subtotal + $shipping + $tax;
             ?>
 

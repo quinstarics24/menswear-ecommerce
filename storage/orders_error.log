@@ -1,0 +1,2 @@
+2025-10-28T16:52:23+01:00 - DB ERROR: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'phone' in 'field list'
+2025-10-28T17:00:34+01:00 - DB ERROR: There is no active transaction
