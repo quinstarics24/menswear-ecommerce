@@ -11,12 +11,12 @@ Options -Indexes
 </FilesMatch>
 
 # Force HTTPS (optional, if your hosting supports SSL)
+# Uncomment if your hosting provides SSL
 # RewriteEngine On
 # RewriteCond %{HTTPS} !=on
 # RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-# Protect admin folder
-<Directory "/admin">
+# Protect admin folder (simple protection)
+<If "%{REQUEST_URI} =~ m#^/admin#">
     Options -Indexes
-    AllowOverride All
-</Directory>
+</If>
