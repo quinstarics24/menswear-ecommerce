@@ -2,8 +2,9 @@
 
 require_once __DIR__ . '/header.php';
 require_once __DIR__ . '/../includes/db.php';
-require_once __DIR__ . '/config.php'; // for SMTP constants (if defined)
-
+require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/admin_auth.php';
+require_admin();
 // load PHPMailer if installed via composer
 if (file_exists(__DIR__ . '/../vendor/autoload.php')) {
     require_once __DIR__ . '/../vendor/autoload.php';

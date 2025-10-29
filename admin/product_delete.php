@@ -1,7 +1,10 @@
 <?php
 
 require_once __DIR__ . '/../includes/db.php';
-require_once __DIR__ . '/../includes/functions.php';
+require_once __DIR__ . '/../includes/functions.php'
+require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/admin_auth.php';
+require_admin();
 session_start();
 if (empty($_SESSION['is_admin'])) { header('Location: login.php'); exit; }
 

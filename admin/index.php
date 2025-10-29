@@ -268,6 +268,9 @@ $totalRevenue = 7850000; // In FCFA
 // Correct paths from admin folder
 require_once __DIR__ . '/../includes/db.php';
 require_once __DIR__ . '/../includes/functions.php';
+require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/admin_auth.php';
+require_admin();
 
 // --- Fetch Dashboard Stats ---
 
