@@ -1,0 +1,22 @@
+# ========================
+# Basic Security Settings
+# ========================
+
+# Disable directory listing
+Options -Indexes
+
+# Deny access to sensitive files
+<FilesMatch "(\.env|config\.php|admin_auth\.php)">
+    Require all denied
+</FilesMatch>
+
+# Force HTTPS (optional, if your hosting supports SSL)
+# RewriteEngine On
+# RewriteCond %{HTTPS} !=on
+# RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Protect admin folder
+<Directory "/admin">
+    Options -Indexes
+    AllowOverride All
+</Directory>
