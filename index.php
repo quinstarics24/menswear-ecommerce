@@ -38,7 +38,7 @@ $featuredProducts = getFeaturedProducts();
         </p>
       </div>
       <div class="col-lg-5 d-none d-lg-block" data-aos="zoom-in">
-        <img src="assets/images/hero-man.jpg" alt="Menswear hero" class="img-fluid rounded shadow-lg">
+        <img src="assets/images/rare-pearl.jpg" alt="Menswear hero" class="img-fluid rounded shadow-lg">
       </div>
     </div>
   </div>
@@ -48,7 +48,7 @@ $featuredProducts = getFeaturedProducts();
   <section class="container mb-5" id="about" data-aos="fade-up">
     <div class="row align-items-center g-4">
       <div class="col-md-6">
-        <img src="assets/images/about-showcase.jpg" alt="About Menswear" class="img-fluid rounded shadow-sm">
+        <img src="assets/images/perfume.jpeg" alt="About Menswear" class="img-fluid rounded shadow-sm">
       </div>
       <div class="col-md-6">
         <h2 class="fw-bold section-title">About Menswear</h2>
@@ -103,44 +103,72 @@ $featuredProducts = getFeaturedProducts();
   </section>
 
   <section class="container py-5" data-aos="fade-up">
-    <div class="d-flex align-items-center mb-4">
-      <h2 class="me-auto section-title">Featured Products</h2>
-      <a href="products.php" class="small text-muted">View all products</a>
-    </div>
+  <div class="d-flex align-items-center mb-4">
+    <h2 class="me-auto section-title">Featured Products</h2>
+    <a href="products.php" class="small text-muted">View all products</a>
+  </div>
 
-    <?php if (empty($featuredProducts)): ?>
-      <div class="alert alert-info">No featured products available right now.</div>
-    <?php else: ?>
-      <div class="row g-4">
-        <?php foreach ($featuredProducts as $product): ?>
-          <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up">
-            <div class="card product-card h-100 shadow-sm">
-              <?php if (!empty($product['image'])): ?>
-                <a href="product.php?id=<?php echo $product['id']; ?>">
-                  <img src="<?php echo htmlspecialchars($product['image']); ?>" class="card-img-top product-img" alt="<?php echo htmlspecialchars($product['name']); ?>">
-                </a>
-              <?php else: ?>
-                <img src="assets/images/placeholder.jpg" class="card-img-top product-img" alt="placeholder">
-              <?php endif; ?>
-              <div class="card-body d-flex flex-column">
-                <h6 class="mb-1"><?php echo htmlspecialchars($product['name']); ?></h6>
-                <p class="small text-muted mb-2"><?php echo htmlspecialchars($product['description']); ?></p>
-                <div class="mt-auto d-flex align-items-center">
-                  <div class="price me-auto fw-bold"><?php echo formatPrice($product['price']); ?></div>
-                  <form method="post" action="cart.php" class="d-flex align-items-center">
-                    <input type="hidden" name="add_to_cart" value="1">
-                    <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
-                    <input type="number" name="quantity" value="1" min="1" class="form-control form-control-sm me-2" style="width:72px;">
-                    <button type="submit" class="btn btn-dark btn-sm"><i class="fa-solid fa-cart-plus"></i></button>
-                  </form>
-                </div>
-              </div>
+  <div class="row g-4">
+    <?php
+    // If there are no featured products in database, show defaults
+    if (empty($featuredProducts)) {
+      $featuredProducts = [
+        [
+          'id' => 1,
+          'name' => 'Classic Leather Jacket',
+          'description' => 'Premium leather with modern fit.',
+          'price' => 120.00,
+          'image' => 'assets/images/boxer.jpeg'
+        ],
+        [
+          'id' => 2,
+          'name' => 'Slim Fit Denim',
+          'description' => 'Stretch denim for all-day comfort.',
+          'price' => 70.00,
+          'image' => 'assets/images/.jpg'
+        ],
+        [
+          'id' => 3,
+          'name' => 'Cotton Oxford Shirt',
+          'description' => 'Crisp, versatile and stylish.',
+          'price' => 55.00,
+          'image' => 'assets/images/women.jpg'
+        ],
+        [
+          'id' => 4,
+          'name' => 'Luxury Scent Perfume',
+          'description' => 'A subtle blend of rare fragrances.',
+          'price' => 85.00,
+          'image' => 'assets/images/perfume.jpeg'
+        ]
+      ];
+    }
+
+    foreach (array_slice($featuredProducts, 0, 4) as $product): ?>
+      <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up">
+        <div class="card product-card h-100 shadow-sm">
+          <a href="product_details.php?id=<?php echo $product['id']; ?>">
+            <img src="<?php echo htmlspecialchars($product['image']); ?>" class="card-img-top product-img" alt="<?php echo htmlspecialchars($product['name']); ?>">
+          </a>
+          <div class="card-body d-flex flex-column">
+            <h6 class="mb-1"><?php echo htmlspecialchars($product['name']); ?></h6>
+            <p class="small text-muted mb-2"><?php echo htmlspecialchars($product['description']); ?></p>
+            <div class="mt-auto d-flex align-items-center">
+              <div class="price me-auto fw-bold"><?php echo '$' . number_format($product['price'], 2); ?></div>
+              <form method="post" action="cart.php" class="d-flex align-items-center">
+                <input type="hidden" name="add_to_cart" value="1">
+                <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+                <input type="number" name="quantity" value="1" min="1" class="form-control form-control-sm me-2" style="width:72px;">
+                <button type="submit" class="btn btn-dark btn-sm"><i class="fa-solid fa-cart-plus"></i></button>
+              </form>
             </div>
           </div>
-        <?php endforeach; ?>
+        </div>
       </div>
-    <?php endif; ?>
-  </section>
+    <?php endforeach; ?>
+  </div>
+</section>
+
 </main>
 
 <?php include 'includes/footer.php'; ?>

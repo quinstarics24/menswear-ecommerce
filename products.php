@@ -85,12 +85,7 @@ $isAdmin = !empty($_SESSION['is_admin']);
                   </button>
                 </div>
 
-                <?php if ($isAdmin): ?>
-                  <div class="mt-2 d-flex gap-2">
-                    <a href="admin_edit_product.php?id=<?php echo $p['id']; ?>" class="btn btn-outline-secondary btn-sm w-100">Edit</a>
-                    <a href="admin_delete_product.php?id=<?php echo $p['id']; ?>" class="btn btn-danger btn-sm w-100" onclick="return confirm('Delete product?')">Delete</a>
-                  </div>
-                <?php endif; ?>
+               
               </div>
             </div>
           </div>

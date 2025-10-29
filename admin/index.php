@@ -264,6 +264,38 @@ $totalRevenue = 7850000; // In FCFA
     }
   }
 </style>
+<?php
+// Correct paths from admin folder
+require_once __DIR__ . '/../includes/db.php';
+require_once __DIR__ . '/../includes/functions.php';
+
+// --- Fetch Dashboard Stats ---
+
+// Total Products
+$stmt = $pdo->query("SELECT COUNT(*) FROM products");
+$totalProducts = $stmt->fetchColumn();
+
+// Total Orders
+$stmt = $pdo->query("SELECT COUNT(*) FROM orders");
+$totalOrders = $stmt->fetchColumn();
+
+// Pending Orders
+$stmt = $pdo->query("SELECT COUNT(*) FROM orders WHERE status = 'pending'");
+$pendingOrders = $stmt->fetchColumn();
+
+// Total Revenue (sum of completed orders)
+$stmt = $pdo->query("SELECT SUM(total) FROM orders WHERE status = 'completed'");
+$totalRevenue = $stmt->fetchColumn() ?? 0;
+
+// Optional: Trends (example)
+$lastMonthOrdersStmt = $pdo->query("SELECT COUNT(*) FROM orders WHERE created_at >= DATE_SUB(CURDATE(), INTERVAL 1 MONTH)");
+$lastMonthOrders = $lastMonthOrdersStmt->fetchColumn();
+$orderTrend = $lastMonthOrders > 0 ? round(($totalOrders - $lastMonthOrders) / $lastMonthOrders * 100) : 0;
+
+$lastMonthRevenueStmt = $pdo->query("SELECT SUM(total) FROM orders WHERE status = 'completed' AND created_at >= DATE_SUB(CURDATE(), INTERVAL 1 MONTH)");
+$lastMonthRevenue = $lastMonthRevenueStmt->fetchColumn() ?? 0;
+$revenueTrend = $lastMonthRevenue > 0 ? round(($totalRevenue - $lastMonthRevenue) / $lastMonthRevenue * 100) : 0;
+?>
 
 <div class="dashboard-header">
   <h1>Admin Dashboard</h1>
@@ -280,7 +312,7 @@ $totalRevenue = 7850000; // In FCFA
       <div class="stat-value"><?php echo $totalProducts; ?></div>
       <div class="stat-label">Total Products</div>
       <div class="stat-trend up">
-        <i class="fa-solid fa-arrow-up"></i> 12% from last month
+        <i class="fa-solid fa-arrow-up"></i> Updated
       </div>
     </div>
   </div>
@@ -293,7 +325,7 @@ $totalRevenue = 7850000; // In FCFA
       <div class="stat-value"><?php echo $totalOrders; ?></div>
       <div class="stat-label">Total Orders</div>
       <div class="stat-trend up">
-        <i class="fa-solid fa-arrow-up"></i> 8% from last month
+        <i class="fa-solid fa-arrow-up"></i> <?php echo $orderTrend; ?>% from last month
       </div>
     </div>
   </div>
@@ -306,7 +338,7 @@ $totalRevenue = 7850000; // In FCFA
       <div class="stat-value"><?php echo $pendingOrders; ?></div>
       <div class="stat-label">Pending Orders</div>
       <div class="stat-trend down">
-        <i class="fa-solid fa-arrow-down"></i> 3 from yesterday
+        <i class="fa-solid fa-arrow-down"></i> <?php echo $pendingOrders; ?> pending
       </div>
     </div>
   </div>
@@ -316,10 +348,10 @@ $totalRevenue = 7850000; // In FCFA
       <div class="stat-icon" style="background: rgba(212, 175, 55, 0.1); color: var(--admin-accent);">
         <i class="fa-solid fa-dollar-sign"></i>
       </div>
-      <div class="stat-value">$<?php echo number_format($totalRevenue, 0); ?></div>
+      <div class="stat-value">XAF<?php echo number_format($totalRevenue, 2); ?></div>
       <div class="stat-label">Total Revenue</div>
       <div class="stat-trend up">
-        <i class="fa-solid fa-arrow-up"></i> 15% from last month
+        <i class="fa-solid fa-arrow-up"></i> <?php echo $revenueTrend; ?>% from last month
       </div>
     </div>
   </div>

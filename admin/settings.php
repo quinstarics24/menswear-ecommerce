@@ -343,8 +343,8 @@ $taxRate = "10";
   </ul>
 </div>
 
-<!-- Tab Content -->
 <div class="tab-content">
+
   <!-- General Settings -->
   <div class="tab-pane fade show active" id="general">
     <div class="settings-card">
@@ -374,18 +374,16 @@ $taxRate = "10";
 
           <div class="col-md-6">
             <label class="form-label">Store Phone</label>
-            <input type="tel" class="form-control" name="store_phone" value="<?php echo htmlspecialchars($storePhone); ?>">
+            <input type="tel" class="form-control" name="store_phone" value="<?php echo htmlspecialchars($storePhone); ?>" placeholder="+237 6XX XXX XXX">
             <div class="form-text">Customer support phone number</div>
           </div>
 
           <div class="col-md-6">
             <label class="form-label">Currency</label>
             <select class="form-select" name="currency">
-              <option value="USD" <?php echo $currency === 'USD' ? 'selected' : ''; ?>>USD - US Dollar</option>
+              <option value="XAF" <?php echo $currency === 'XAF' ? 'selected' : ''; ?>>XAF - Central African Franc</option>
+              <option value="USD">USD - US Dollar</option>
               <option value="EUR">EUR - Euro</option>
-              <option value="GBP">GBP - British Pound</option>
-              <option value="CAD">CAD - Canadian Dollar</option>
-              <option value="AUD">AUD - Australian Dollar</option>
             </select>
           </div>
 
@@ -401,16 +399,13 @@ $taxRate = "10";
           <div class="col-md-6">
             <label class="form-label">Time Zone</label>
             <select class="form-select" name="timezone">
-              <option value="America/New_York">Eastern Time (ET)</option>
-              <option value="America/Chicago">Central Time (CT)</option>
-              <option value="America/Denver">Mountain Time (MT)</option>
-              <option value="America/Los_Angeles">Pacific Time (PT)</option>
+              <option value="Africa/Douala" selected>Central Africa Time (Yaounde)</option>
             </select>
           </div>
 
           <div class="col-12">
             <label class="form-label">Store Description</label>
-            <textarea class="form-control" name="store_description" rows="3">Quality menswear with timeless style and modern tailoring.</textarea>
+            <textarea class="form-control" name="store_description" rows="3">Quality menswear with timeless style for Cameroon customers.</textarea>
             <div class="form-text">Brief description for SEO and social media</div>
           </div>
 
@@ -445,7 +440,7 @@ $taxRate = "10";
 
       <div class="info-box">
         <i class="fa-solid fa-info-circle"></i>
-        <p>Enable and configure your preferred payment methods. Make sure to test in sandbox mode before going live.</p>
+        <p>Enable and configure your preferred payment methods. Test before going live.</p>
       </div>
 
       <form method="post" action="">
@@ -501,21 +496,16 @@ $taxRate = "10";
             <label class="form-label">COD Fee</label>
             <div class="input-group">
               <span class="input-group-text">XAF</span>
-              <input type="number" class="form-control" name="cod_fee" value="5.00" step="0.01">
+              <input type="number" class="form-control" name="cod_fee" value="2000.00" step="0.01">
             </div>
             <div class="form-text">Additional fee for cash on delivery</div>
           </div>
 
           <div class="col-12">
             <hr class="my-3">
-            <div class="d-flex gap-2">
-              <button type="submit" name="update_payment" class="btn btn-save">
-                <i class="fa-solid fa-check me-2"></i>Save Changes
-              </button>
-              <button type="reset" class="btn btn-reset">
-                <i class="fa-solid fa-rotate-left me-2"></i>Reset
-              </button>
-            </div>
+            <button type="submit" name="update_payment" class="btn btn-save">
+              <i class="fa-solid fa-check me-2"></i>Save Payment Settings
+            </button>
           </div>
         </div>
       </form>
@@ -531,90 +521,40 @@ $taxRate = "10";
         </div>
         <div>
           <h4>Shipping Settings</h4>
-          <p>Configure shipping methods and rates</p>
+          <p>Manage shipping options and rates</p>
         </div>
       </div>
 
       <form method="post" action="">
         <div class="row g-3">
           <div class="col-12">
-            <label class="form-label">Free Shipping Threshold</label>
-            <div class="input-group">
-              <span class="input-group-text">XAF</span>
-              <input type="number" class="form-control" name="free_shipping_threshold" value="100.00" step="0.01">
-            </div>
-            <div class="form-text">Minimum order value for free shipping</div>
-          </div>
-
-          <div class="col-md-6">
-            <label class="form-label">Standard Shipping Rate</label>
-            <div class="input-group">
-              <span class="input-group-text">XAF</span>
-              <input type="number" class="form-control" name="standard_shipping" value="9.99" step="0.01">
-            </div>
-            <div class="form-text">Delivery in 5-7 business days</div>
-          </div>
-
-          <div class="col-md-6">
-            <label class="form-label">Express Shipping Rate</label>
-            <div class="input-group">
-              <span class="input-group-text">XAF</span>
-              <input type="number" class="form-control" name="express_shipping" value="19.99" step="0.01">
-            </div>
-            <div class="form-text">Delivery in 2-3 business days</div>
-          </div>
-
-          <div class="col-12"><hr class="my-3"></div>
-
-          <div class="col-12">
             <div class="form-check form-switch mb-3">
-              <input class="form-check-input" type="checkbox" id="enableTracking" checked>
-              <label class="form-check-label" for="enableTracking">Enable Order Tracking</label>
+              <input class="form-check-input" type="checkbox" id="enableStandardShipping" checked>
+              <label class="form-check-label" for="enableStandardShipping">Enable Standard Shipping</label>
             </div>
           </div>
 
-          <div class="col-12">
-            <div class="form-check form-switch mb-3">
-              <input class="form-check-input" type="checkbox" id="enableLocalPickup">
-              <label class="form-check-label" for="enableLocalPickup">Enable Local Pickup</label>
+          <div class="col-md-6">
+            <label class="form-label">Standard Shipping Fee</label>
+            <div class="input-group">
+              <span class="input-group-text">XAF</span>
+              <input type="number" class="form-control" name="standard_shipping_fee" value="3000.00" step="0.01">
             </div>
           </div>
 
-          <div class="col-12">
-            <label class="form-label">Shipping Zones</label>
-            <textarea class="form-control" name="shipping_zones" rows="3">United States, Canada, United Kingdom, Australia</textarea>
-            <div class="form-text">Countries/regions where you ship (comma-separated)</div>
-          </div>
-
           <div class="col-md-6">
-            <label class="form-label">Processing Time</label>
-            <select class="form-select" name="processing_time">
-              <option value="1-2">1-2 business days</option>
-              <option value="3-5" selected>3-5 business days</option>
-              <option value="5-7">5-7 business days</option>
-            </select>
-          </div>
-
-          <div class="col-md-6">
-            <label class="form-label">Default Shipping Carrier</label>
-            <select class="form-select" name="default_carrier">
-              <option value="usps">USPS</option>
-              <option value="ups" selected>UPS</option>
-              <option value="fedex">FedEx</option>
-              <option value="dhl">DHL</option>
-            </select>
+            <label class="form-label">Express Shipping Fee</label>
+            <div class="input-group">
+              <span class="input-group-text">XAF</span>
+              <input type="number" class="form-control" name="express_shipping_fee" value="5000.00" step="0.01">
+            </div>
           </div>
 
           <div class="col-12">
             <hr class="my-3">
-            <div class="d-flex gap-2">
-              <button type="submit" name="update_shipping" class="btn btn-save">
-                <i class="fa-solid fa-check me-2"></i>Save Changes
-              </button>
-              <button type="reset" class="btn btn-reset">
-                <i class="fa-solid fa-rotate-left me-2"></i>Reset
-              </button>
-            </div>
+            <button type="submit" name="update_shipping" class="btn btn-save">
+              <i class="fa-solid fa-check me-2"></i>Save Shipping Settings
+            </button>
           </div>
         </div>
       </form>
@@ -630,101 +570,33 @@ $taxRate = "10";
         </div>
         <div>
           <h4>Email Settings</h4>
-          <p>Configure email notifications and templates</p>
+          <p>Configure email notifications and SMTP settings</p>
         </div>
       </div>
 
       <form method="post" action="">
         <div class="row g-3">
-          <div class="col-12">
-            <label class="form-label">From Email Address</label>
-            <input type="email" class="form-control" name="from_email" value="noreply@menswear.com">
-            <div class="form-text">Email address used for outgoing emails</div>
-          </div>
-
-          <div class="col-12">
-            <label class="form-label">From Name</label>
-            <input type="text" class="form-control" name="from_name" value="Menswear Store">
-            <div class="form-text">Name displayed in outgoing emails</div>
-          </div>
-
-          <div class="col-12"><hr class="my-3"></div>
-
-          <div class="col-12">
-            <h5 class="mb-3">Email Notifications</h5>
-          </div>
-
-          <div class="col-md-6">
-            <div class="form-check form-switch mb-3">
-              <input class="form-check-input" type="checkbox" id="emailNewOrder" checked>
-              <label class="form-check-label" for="emailNewOrder">New Order Confirmation</label>
-            </div>
-          </div>
-
-          <div class="col-md-6">
-            <div class="form-check form-switch mb-3">
-              <input class="form-check-input" type="checkbox" id="emailShipped" checked>
-              <label class="form-check-label" for="emailShipped">Order Shipped</label>
-            </div>
-          </div>
-
-          <div class="col-md-6">
-            <div class="form-check form-switch mb-3">
-              <input class="form-check-input" type="checkbox" id="emailDelivered" checked>
-              <label class="form-check-label" for="emailDelivered">Order Delivered</label>
-            </div>
-          </div>
-
-          <div class="col-md-6">
-            <div class="form-check form-switch mb-3">
-              <input class="form-check-input" type="checkbox" id="emailCancelled">
-              <label class="form-check-label" for="emailCancelled">Order Cancelled</label>
-            </div>
-          </div>
-
-          <div class="col-12"><hr class="my-3"></div>
-
-          <div class="col-12">
-            <h5 class="mb-3">SMTP Configuration</h5>
-          </div>
-
           <div class="col-md-6">
             <label class="form-label">SMTP Host</label>
-            <input type="text" class="form-control" name="smtp_host" placeholder="smtp.gmail.com">
+            <input type="text" class="form-control" name="smtp_host" value="smtp.example.com">
           </div>
-
           <div class="col-md-6">
             <label class="form-label">SMTP Port</label>
             <input type="number" class="form-control" name="smtp_port" value="587">
           </div>
-
           <div class="col-md-6">
             <label class="form-label">SMTP Username</label>
-            <input type="text" class="form-control" name="smtp_username">
+            <input type="text" class="form-control" name="smtp_username" value="">
           </div>
-
           <div class="col-md-6">
             <label class="form-label">SMTP Password</label>
-            <input type="password" class="form-control" name="smtp_password">
+            <input type="password" class="form-control" name="smtp_password" value="">
           </div>
-
-          <div class="col-12">
-            <div class="form-check form-switch">
-              <input class="form-check-input" type="checkbox" id="smtpSSL" checked>
-              <label class="form-check-label" for="smtpSSL">Use SSL/TLS</label>
-            </div>
-          </div>
-
           <div class="col-12">
             <hr class="my-3">
-            <div class="d-flex gap-2">
-              <button type="submit" name="update_email" class="btn btn-save">
-                <i class="fa-solid fa-check me-2"></i>Save Changes
-              </button>
-              <button type="button" class="btn btn-reset">
-                <i class="fa-solid fa-paper-plane me-2"></i>Send Test Email
-              </button>
-            </div>
+            <button type="submit" name="update_email" class="btn btn-save">
+              <i class="fa-solid fa-check me-2"></i>Save Email Settings
+            </button>
           </div>
         </div>
       </form>
@@ -740,125 +612,35 @@ $taxRate = "10";
         </div>
         <div>
           <h4>Advanced Settings</h4>
-          <p>Advanced configuration options</p>
+          <p>Extra configurations for developers and advanced users</p>
         </div>
-      </div>
-
-      <div class="info-box">
-        <i class="fa-solid fa-triangle-exclamation"></i>
-        <p><strong>Caution:</strong> These settings can affect your store's functionality. Only modify if you understand the implications.</p>
       </div>
 
       <form method="post" action="">
         <div class="row g-3">
           <div class="col-12">
-            <h5 class="mb-3">Performance</h5>
-          </div>
-
-          <div class="col-md-6">
-            <div class="form-check form-switch mb-3">
-              <input class="form-check-input" type="checkbox" id="enableCache" checked>
-              <label class="form-check-label" for="enableCache">Enable Page Caching</label>
-            </div>
-          </div>
-
-          <div class="col-md-6">
-            <div class="form-check form-switch mb-3">
-              <input class="form-check-input" type="checkbox" id="minifyCSS" checked>
-              <label class="form-check-label" for="minifyCSS">Minify CSS & JavaScript</label>
-            </div>
-          </div>
-
-          <div class="col-12"><hr class="my-3"></div>
-
-          <div class="col-12">
-            <h5 class="mb-3">Security</h5>
-          </div>
-
-          <div class="col-md-6">
-            <div class="form-check form-switch mb-3">
-              <input class="form-check-input" type="checkbox" id="enable2FA">
-              <label class="form-check-label" for="enable2FA">Enable Two-Factor Authentication</label>
-            </div>
-          </div>
-
-          <div class="col-md-6">
-            <div class="form-check form-switch mb-3">
-              <input class="form-check-input" type="checkbox" id="forceSSL" checked>
-              <label class="form-check-label" for="forceSSL">Force SSL (HTTPS)</label>
-            </div>
+            <label class="form-label">Custom CSS</label>
+            <textarea class="form-control" name="custom_css" rows="4" placeholder="Enter your custom CSS here"></textarea>
           </div>
 
           <div class="col-12">
-            <label class="form-label">Session Timeout (minutes)</label>
-            <input type="number" class="form-control" name="session_timeout" value="30" min="5" max="120">
-            <div class="form-text">User session will expire after this many minutes of inactivity</div>
-          </div>
-
-          <div class="col-12"><hr class="my-3"></div>
-
-          <div class="col-12">
-            <h5 class="mb-3">Maintenance</h5>
-          </div>
-
-          <div class="col-12">
-            <div class="form-check form-switch mb-3">
-              <input class="form-check-input" type="checkbox" id="maintenanceMode">
-              <label class="form-check-label" for="maintenanceMode">Enable Maintenance Mode</label>
-            </div>
-            <div class="form-text mb-3">Display maintenance page to visitors (admins can still access)</div>
-          </div>
-
-          <div class="col-12">
-            <label class="form-label">Maintenance Message</label>
-            <textarea class="form-control" name="maintenance_message" rows="2">We're currently updating our store. Please check back soon!</textarea>
-          </div>
-
-          <div class="col-12"><hr class="my-3"></div>
-
-          <div class="col-12">
-            <h5 class="mb-3">Backup & Export</h5>
-          </div>
-
-          <div class="col-md-6">
-            <div class="form-check form-switch mb-3">
-              <input class="form-check-input" type="checkbox" id="autoBackup" checked>
-              <label class="form-check-label" for="autoBackup">Automatic Daily Backups</label>
-            </div>
-          </div>
-
-          <div class="col-md-6">
-            <label class="form-label">Backup Retention (days)</label>
-            <input type="number" class="form-control" name="backup_retention" value="30" min="7" max="90">
-          </div>
-
-          <div class="col-12 mt-3">
-            <div class="d-flex gap-2">
-              <button type="button" class="btn btn-outline-dark">
-                <i class="fa-solid fa-download me-2"></i>Download Backup
-              </button>
-              <button type="button" class="btn btn-outline-dark">
-                <i class="fa-solid fa-file-export me-2"></i>Export Data
-              </button>
-            </div>
+            <label class="form-label">Custom JavaScript</label>
+            <textarea class="form-control" name="custom_js" rows="4" placeholder="Enter your custom JS here"></textarea>
           </div>
 
           <div class="col-12">
             <hr class="my-3">
-            <div class="d-flex gap-2">
-              <button type="submit" name="update_advanced" class="btn btn-save">
-                <i class="fa-solid fa-check me-2"></i>Save Changes
-              </button>
-              <button type="reset" class="btn btn-reset">
-                <i class="fa-solid fa-rotate-left me-2"></i>Reset
-              </button>
-            </div>
+            <button type="submit" name="update_advanced" class="btn btn-save">
+              <i class="fa-solid fa-check me-2"></i>Save Advanced Settings
+            </button>
           </div>
         </div>
       </form>
     </div>
   </div>
+
 </div>
+
 
 <?php
 require_once __DIR__ . '/footer.php';
